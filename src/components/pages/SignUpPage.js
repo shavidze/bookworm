@@ -1,13 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { signup } from "../../actions/users";
+
 import SignUpForm from "../forms/SignUpForm";
 
 class SignUpPage extends React.Component {
   submit = data =>
     this.props.signup(data).then(() => {
-      console.log(this.props.history);
+      console.log(this.props.history.push);
       this.props.history.push("/dashboard");
       console.log(this.props.history);
     });
@@ -30,4 +32,4 @@ SignUpPage.propTypes = {
 export default connect(
   null,
   { signup }
-)(SignUpPage);
+)(withRouter(SignUpPage));

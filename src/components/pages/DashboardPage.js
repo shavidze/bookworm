@@ -3,7 +3,17 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import ConfirmEmailMessage from "../messages/ConfirmEmailMessage";
 
-const DashboardPage = ({ isConfirmed }) => <div>{<ConfirmEmailMessage />}</div>;
+const DashboardPage = ({ isConfirmed }) => {
+  if (!isConfirmed) {
+    console.log(isConfirmed);
+    return (
+      <div>
+        <ConfirmEmailMessage />
+      </div>
+    );
+  }
+  return <div>Dashboard</div>;
+};
 
 DashboardPage.propTypes = {
   isConfirmed: PropTypes.bool.isRequired
