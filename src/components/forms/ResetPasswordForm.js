@@ -1,13 +1,14 @@
 import React from "react";
 import { Form, Button, Message } from "semantic-ui-react";
 import PropTypes from "prop-types";
-import Validator from "validator";
 import InlineError from "../messages/InlineError";
 
-class ForgotPasswordForm extends React.Component {
+class ResetPasswordForm extends React.Component {
   state = {
     data: {
-      email: ""
+      token: this.props.token,
+      password: "",
+      passwordConfirmation: ""
     },
     loading: false,
     errors: {}
@@ -36,7 +37,9 @@ class ForgotPasswordForm extends React.Component {
 
   validate = data => {
     const errors = {};
-    if (!Validator.isEmail(data.email)) errors.email = "Invalid email";
+    if (!data.password) errors.password = "Can't be blank";
+    if (data.password !== data.passwordConfirmation)
+      errors.password = "Passwords must match";
     return errors;
   };
 
@@ -50,25 +53,42 @@ class ForgotPasswordForm extends React.Component {
             <p>{errors.global}</p>
           </Message>
         )}
-        <Form.Field error={!!errors.email}>
-          <label htmlFor="email">Email</label>
+        <Form.Field error={!!errors.password}>
+          <label htmlFor="password">New Password</label>
           <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="email"
-            value={data.email}
+            type="password"
+            id="password"
+            name="password"
+            placeholder="your new password"
+            value={data.password}
             onChange={this.onChange}
           />
         </Form.Field>
-        {errors.email && <InlineError text={errors.email} />}
+        {errors.password && <InlineError text={errors.password} />}
+
+        <Form.Field error={!!errors.passwordConfirmation}>
+          <label htmlFor="passwordConfirmation">Confirm Your Password</label>
+          <input
+            type="password"
+            id="passwordConfirmation"
+            name="passwordConfirmation"
+            placeholder="type it again, please"
+            value={data.passwordConfirmation}
+            onChange={this.onChange}
+          />
+        </Form.Field>
+        {errors.passwordConfirmation && (
+          <InlineError text={errors.passwordConfirmation} />
+        )}
+
         <Button primary>ForgotPasswordForm</Button>
       </Form>
     );
   }
 }
 
-ForgotPasswordForm.propTypes = {
-  submit: PropTypes.func.isRequired
+ResetPasswordForm.propTypes = {
+  submit: PropTypes.func.isRequired,
+  token: PropTypes.string.isRequired
 };
-export default ForgotPasswordForm;
+export default ResetPasswordForm;
