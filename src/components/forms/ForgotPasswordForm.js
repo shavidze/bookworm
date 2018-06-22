@@ -22,15 +22,13 @@ class ForgotPasswordForm extends React.Component {
     e.preventDefault();
     const errors = this.validate(this.state.data);
     this.setState({ errors });
-    console.log(this.props.submit);
     if (Object.keys(errors).length === 0) {
-      console.log(Object.keys(errors).length);
       this.setState({ loading: true });
-      console.log("ae", this.state.loading);
-      this.props.submit(this.state.data);
-      // .catch(err =>
-      //   this.setState({ errors: err.response.data.errors, loading: false })
-      // );
+      this.props
+        .submit(this.state.data)
+        .catch(err =>
+          this.setState({ errors: err.response.data.errors, loading: false })
+        );
     }
   };
 
