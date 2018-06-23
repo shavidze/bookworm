@@ -14,7 +14,7 @@ class ConfirmationPage extends Component {
   };
 
   componentDidMount() {
-    console.log("ager eee", this.props);
+    // console.log("ager eee", this.props);
 
     this.props
       .confirm(this.props.match.params.token)
