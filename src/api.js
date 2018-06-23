@@ -9,7 +9,7 @@ export default {
     confirm: token =>
       axios
         .post("/api/auth/confirmation", { token })
-        .catch(err => console.log("daenzra", err.response))
+        // .catch(err => console.log("daenzra", err.response))
         .then(res => res.data.user),
     resetPasswordRequest: email =>
       axios.post("/api/auth/reset_password_request", { email }),

@@ -6,6 +6,7 @@ import HomePage from "./components/pages/HomPage";
 import LoginPage from "./components/pages/LoginPage";
 import DashboardPage from "./components/pages/DashboardPage";
 import SignUpPage from "./components/pages/SignUpPage";
+import NewBookPage from "./components/pages/NewBookPage";
 import ConfirmationPage from "./components/pages/ConfirmationPage";
 import ForgotPasswordPage from "./components/pages/ForgotPasswordPage";
 import ResetPasswordPage from "./components/pages/ResetPasswordPage";
@@ -47,6 +48,13 @@ const App = ({ location, isAuthenticated }) => (
       path="/dashboard"
       exact
       component={DashboardPage}
+    />
+
+    <UserRoute
+      location={location}
+      path="/books/new"
+      exact
+      component={NewBookPage}
     />
   </div>
 );
