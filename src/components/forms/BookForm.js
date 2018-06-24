@@ -1,15 +1,16 @@
 import React from "react";
-import { Form, Button, Grid, Segment } from "semantic-ui-react";
+import { Form, Button, Grid, Segment, Image } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import InlineError from "../messages/InlineError";
 
 class BookForm extends React.Component {
   state = {
+    index: 0,
     data: {
       goodreadsId: this.props.book.goodreadsId,
       title: this.props.book.title,
       authors: this.props.book.authors,
-      cover: this.props.book.covers[0],
+      cover: this.props.book.covers[this.state.index],
       pages: this.props.book.pages
     },
     covers: this.props.book.covers,
@@ -17,10 +18,33 @@ class BookForm extends React.Component {
     errors: {}
   };
 
+  componentWillReceiveProps(props) {
+    this.setState({
+      data: {
+        goodreadsId: props.book.goodreadsId,
+        title: this.props.book.title,
+        authors: this.props.book.authors,
+        cover: this.props.book.covers[0],
+        pages: this.props.book.pages
+      },
+      covers: props.book.covers
+    });
+  }
   onChange = e =>
     this.setState({
+      ...this.state,
       data: { ...this.state.data, [e.target.name]: e.target.value }
     });
+
+  onChangeNumber = e => {
+    this.setState({
+      ...this.state,
+      data: {
+        ...this.state.data,
+        [e.target.name]: parseInt(e.target.value, 10)
+      }
+    });
+  };
 
   onSubmit = () => {
     const errors = this.validate(this.state.data);
@@ -34,6 +58,15 @@ class BookForm extends React.Component {
           this.setState({ errors: err.response.data.errors, loading: false })
         );
     }
+  };
+
+  changeCover = () => {
+    const { index, covers } = this.state;
+    const newIndex = index + 1 >= covers.length ? 0 : index + 1;
+    this.setState({
+      index: newIndex,
+      data: { ...this.state.data, cover: covers[newIndex] }
+    });
   };
 
   validate = data => {
@@ -90,6 +123,14 @@ class BookForm extends React.Component {
                   />
                   {errors.authors && <InlineError text={errors.authors} />}
                 </Form.Field>
+              </Grid.Column>
+              <Grid.Column>
+                <Image size="small" src={data.cover} />
+                {this.state.covers > 1 && (
+                  <a role="button" tabIndex={0} onClick={this.changeCover}>
+                    Next cover
+                  </a>
+                )}
               </Grid.Column>
             </Grid.Row>
             <Button primary>Save</Button>

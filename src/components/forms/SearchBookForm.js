@@ -35,6 +35,7 @@ class SearchBookForm extends Component {
     });
     this.timer = setTimeout(this.fetchOptions, 3000);
   };
+
   onChange = (e, data) => {
     this.setState({ query: data.value });
     this.props.onBookSelect(this.state.book[data.value]);
@@ -66,6 +67,7 @@ class SearchBookForm extends Component {
       <Form>
         <Dropdown
           search
+          selection
           fluid
           placeholder="Search for a book by title"
           value={this.state.query}
