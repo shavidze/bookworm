@@ -38,12 +38,13 @@ class SearchBookForm extends Component {
 
   onChange = (e, data) => {
     this.setState({ query: data.value });
-    this.props.onBookSelect(this.state.book[data.value]);
+    this.props.onBookSelect(this.state.books[data.value]);
   };
   fetchOptions = () => {
     if (!this.state.query) return;
-    // console.log("query =", this.state.query);
+
     this.setState({ loading: true });
+
     axios
       .get(`/api/books/search?q=${this.state.query.searchQuery}`)
       .then(res => res.data.books)

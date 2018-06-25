@@ -10,7 +10,7 @@ class BookForm extends React.Component {
       goodreadsId: this.props.book.goodreadsId,
       title: this.props.book.title,
       authors: this.props.book.authors,
-      cover: this.props.book.covers[this.state.index],
+      cover: this.props.book.covers[0],
       pages: this.props.book.pages
     },
     covers: this.props.book.covers,
@@ -79,6 +79,7 @@ class BookForm extends React.Component {
 
   render() {
     const { loading, data, errors } = this.state;
+    // console.log("ager ee", data.pages);
     return (
       <Segment>
         <Form onSubmit={this.onSubmit} loading={loading}>

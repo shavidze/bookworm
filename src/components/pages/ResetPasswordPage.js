@@ -14,7 +14,6 @@ class ResetPasswordPage extends Component {
   };
 
   componentDidMount() {
-    console.log("match router", this.props.match);
     this.props
       .validateToken(this.props.match.params.token)
       .then(() => this.setState({ loading: false, success: true }))
