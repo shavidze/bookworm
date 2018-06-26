@@ -83,7 +83,7 @@ class BookForm extends React.Component {
     return (
       <Segment>
         <Form onSubmit={this.onSubmit} loading={loading}>
-          <Grid columns={2}>
+          <Grid columns={2} stackable>
             <Grid.Row>
               <Grid.Column>
                 <Form.Field error={!!errors.title}>
@@ -115,11 +115,14 @@ class BookForm extends React.Component {
                 <Form.Field error={!!errors.authors}>
                   <label htmlFor="pages">Pages</label>
                   <input
+                    disabled={data.pages === undefined}
                     type="pages"
                     id="pages"
                     name="pages"
                     placeholder="pages"
-                    value={data.pages}
+                    value={
+                      data.pages !== undefined ? data.pages : "Loading ..."
+                    }
                     onChange={this.onChange}
                   />
                   {errors.authors && <InlineError text={errors.authors} />}
