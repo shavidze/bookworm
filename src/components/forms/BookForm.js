@@ -48,6 +48,7 @@ class BookForm extends React.Component {
 
   onSubmit = () => {
     const errors = this.validate(this.state.data);
+    console.log("ager vinaxavt cigns", errors);
     this.setState({ errors });
     if (Object.keys(errors).length === 0) {
       this.setState({ loading: true });
@@ -137,7 +138,9 @@ class BookForm extends React.Component {
                 )}
               </Grid.Column>
             </Grid.Row>
-            <Button primary>Save</Button>
+            <Grid.Row>
+              <Button primary>Save</Button>
+            </Grid.Row>
           </Grid>
         </Form>
       </Segment>

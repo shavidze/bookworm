@@ -7,20 +7,17 @@ import AddBookCta from "../ctas/AddBookCta";
 import { fetchBooks } from "../../actions/books";
 
 class DashboardPage extends React.Component {
-  state = {};
-
   componentDidMount = () => this.onInit(this.props);
 
-  onInit = props => {
-    props.fetchBooks();
-  };
+  onInit = props => props.fetchBooks();
 
   render() {
     const { isConfirmed, books } = this.props;
+    console.log("IsConfirmed = ", isConfirmed);
     return (
       <div>
         {!isConfirmed && <ConfirmEmailMessage />}
-        {books.length === 0 && <AddBookCta />}
+        {books.length === 0 ? <AddBookCta /> : <p>You have books</p>}
       </div>
     );
   }
