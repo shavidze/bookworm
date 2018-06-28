@@ -8,7 +8,7 @@ class SignUpForm extends Component {
   state = {
     data: {
       password: "",
-      emai: ""
+      email: ""
     },
     loading: false,
     errors: {}
