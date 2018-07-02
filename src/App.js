@@ -16,6 +16,7 @@ import UserRoute from "./components/routes/UserRoute";
 import GuestRoute from "./components/routes/GuestRoute";
 import TopNavigation from "./components/navigation/TopNavigation";
 import { fetchCurrentUser } from "./actions/users";
+import messages from "./messages";
 
 class App extends React.Component {
   componentDidMount() {
@@ -25,14 +26,9 @@ class App extends React.Component {
   }
 
   render() {
-    const { isAuthenticated, location, loaded } = this.props;
+    const { isAuthenticated, location, loaded, lang } = this.props;
     return (
-      <IntlProvider
-        locale="ru"
-        message={{
-          "nav.dashboard": "Панель управления"
-        }}
-      >
+      <IntlProvider locale={lang} message={messages[lang]}>
         <div>
           <Loader loaded={loaded}>
             <div className="ui container">
@@ -95,13 +91,15 @@ App.propTypes = {
   }).isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
   fetchCurrentUser: PropTypes.func.isRequired,
-  loaded: PropTypes.bool.isRequired
+  loaded: PropTypes.bool.isRequired,
+  lang: PropTypes.string.isRequired
 };
 
 function mapStateToProps(state) {
   return {
     isAuthenticated: !!state.user.email,
-    loaded: state.user.loaded
+    loaded: state.user.loaded,
+    lang: state.locale.lang
   };
 }
 
