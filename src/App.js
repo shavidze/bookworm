@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Route } from "react-router-dom";
+import { IntlProvider } from "react-intl";
 import Loader from "react-loader";
 import HomePage from "./components/pages/HomPage";
 import LoginPage from "./components/pages/LoginPage";
@@ -26,55 +27,64 @@ class App extends React.Component {
   render() {
     const { isAuthenticated, location, loaded } = this.props;
     return (
-      <Loader loaded={loaded}>
-        <div className="ui container">
-          {isAuthenticated && <TopNavigation />}
-          <Route location={location} path="/" exact component={HomePage} />
-          <Route
-            location={location}
-            path="/confirmation/:token"
-            exact
-            component={ConfirmationPage}
-          />
-          <GuestRoute
-            location={location}
-            path="/login"
-            exact
-            component={LoginPage}
-          />
-          <GuestRoute
-            location={location}
-            path="/signup"
-            exact
-            component={SignUpPage}
-          />
-          <GuestRoute
-            location={location}
-            path="/forgot_password"
-            exact
-            component={ForgotPasswordPage}
-          />
-          <GuestRoute
-            location={location}
-            path="/reset_password/:token"
-            exact
-            component={ResetPasswordPage}
-          />
-          <UserRoute
-            location={location}
-            path="/dashboard"
-            exact
-            component={DashboardPage}
-          />
+      <IntlProvider
+        locale="ru"
+        message={{
+          "nav.dashboard": "Панель управления"
+        }}
+      >
+        <div>
+          <Loader loaded={loaded}>
+            <div className="ui container">
+              {isAuthenticated && <TopNavigation />}
+              <Route location={location} path="/" exact component={HomePage} />
+              <Route
+                location={location}
+                path="/confirmation/:token"
+                exact
+                component={ConfirmationPage}
+              />
+              <GuestRoute
+                location={location}
+                path="/login"
+                exact
+                component={LoginPage}
+              />
+              <GuestRoute
+                location={location}
+                path="/signup"
+                exact
+                component={SignUpPage}
+              />
+              <GuestRoute
+                location={location}
+                path="/forgot_password"
+                exact
+                component={ForgotPasswordPage}
+              />
+              <GuestRoute
+                location={location}
+                path="/reset_password/:token"
+                exact
+                component={ResetPasswordPage}
+              />
+              <UserRoute
+                location={location}
+                path="/dashboard"
+                exact
+                component={DashboardPage}
+              />
 
-          <UserRoute
-            location={location}
-            path="/books/new"
-            exact
-            component={NewBookPage}
-          />
+              <UserRoute
+                location={location}
+                path="/books/new"
+                exact
+                component={NewBookPage}
+              />
+            </div>
+          </Loader>
         </div>
-      </Loader>
+      </IntlProvider>
     );
   }
 }

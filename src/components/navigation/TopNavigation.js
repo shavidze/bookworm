@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Menu, Dropdown, Image } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { FormattedMessage } from "react-intl";
 import gravatarUrl from "gravatar-url";
 import * as actions from "../../actions/auth";
 import { allBooksSelector } from "../../reducers/books";
@@ -10,12 +11,10 @@ import { allBooksSelector } from "../../reducers/books";
 const TopNavigation = ({ user, logout, hasBooks }) => (
   <Menu secondary pointing>
     <Menu.Item as={Link} to="/dashboard">
-      Dashboard
-      {console.log("aqqvs?", hasBooks)}
+      <FormattedMessage id="nav.dashboard" defaultMessage="AA" />
     </Menu.Item>
     {!hasBooks && (
       <Menu.Item as={Link} to="/books/new">
-        {console.log("aqqvs?", hasBooks)}
         Add New book
       </Menu.Item>
     )}
