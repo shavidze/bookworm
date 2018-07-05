@@ -10,6 +10,8 @@ import DashboardPage from "./components/pages/DashboardPage";
 import SignUpPage from "./components/pages/SignUpPage";
 import NewBookPage from "./components/pages/NewBookPage";
 import ConfirmationPage from "./components/pages/ConfirmationPage";
+import CharactersPage from "./components/pages/CharactersPage";
+import NewCharactersPage from "./components/pages/NewCharactersPage";
 import ForgotPasswordPage from "./components/pages/ForgotPasswordPage";
 import ResetPasswordPage from "./components/pages/ResetPasswordPage";
 import UserRoute from "./components/routes/UserRoute";
@@ -69,6 +71,20 @@ class App extends React.Component {
                 path="/dashboard"
                 exact
                 component={DashboardPage}
+              />
+
+              <UserRoute
+                location={location}
+                path="/characters"
+                exact
+                component={CharactersPage}
+              />
+
+              <UserRoute
+                location={location}
+                path="/characters/new"
+                exact
+                component={NewCharactersPage}
               />
 
               <UserRoute

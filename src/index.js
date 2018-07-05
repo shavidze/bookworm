@@ -13,6 +13,7 @@ import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 import rootReducer from "./rootReducer";
 import setAuthorizationHeader from "./utils/setAuthorizationHeader";
+import { localeSet } from "./actions/locale";
 import { fetchCurrentUser, userFetched } from "./actions/users";
 
 addLocaleData(en);
@@ -30,6 +31,9 @@ if (localStorage.bookwormJWT) {
   store.dispatch(userFetched({}));
 }
 
+if (localStorage.lang) {
+  store.dispatch(localeSet(localStorage.lang));
+}
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
